@@ -1,17 +1,16 @@
+import os
+from datetime import date
+
 import requests
 from bs4 import BeautifulSoup
-# from selenium.webdriver.common.by import By
-import csv
 import pandas as pd
-import os
-from os.path import exists
 from tqdm.auto import tqdm
-from datetime import date
+
 
 
 MONTHS_IN_YEAR = 12
 
-def scrape_maariv(add_to_db_func=None, save_every=5000, save_during_run=True, stop_at_page=20):
+def scrape_maariv(add_to_db_func=None, save_every=5000, save_during_run=True, stop_at_page=3):
     # creating the date object of today's date
     todays_date = date.today()
     
@@ -102,7 +101,7 @@ def scrape_maariv(add_to_db_func=None, save_every=5000, save_during_run=True, st
                         # print(a_date)
 
                         if save_during_run and article_count % save_every == 0:
-                            dataset = pd.DataFrame({'Text': descriptions, 'Title': titles, 'Author': authors, 'Date': dates})
+                            dataset = pd.DataFrame({'Text': descriptions, 'Title': titles, 'Author': authors, 'Date': dates, 'Source': ['maariv']*len(titles)})
                             dataset.set_index('Text')
                             if os.path.exists(path):
                                 old_data = pd.read_csv(path)
@@ -126,7 +125,7 @@ def scrape_maariv(add_to_db_func=None, save_every=5000, save_during_run=True, st
             prev_count = article_count
     print('Total Articles:', article_count)
     if not save_during_run or article_count % save_every != 0:
-        dataset = pd.DataFrame({'Text': descriptions, 'Title': titles, 'Author': authors, 'Date': dates})
+        dataset = pd.DataFrame({'Text': descriptions, 'Title': titles, 'Author': authors, 'Date': dates, 'Source': ['maariv']*len(titles)})
         dataset.set_index('Text')
         if os.path.exists(path):
             old_data = pd.read_csv(path)
