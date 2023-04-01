@@ -19,7 +19,7 @@
 	}
 // ]]></script>
 <body>
-    <h1 class="d-flex justify-content-center">News Flash Scraper</h1>
+    <h1 class="d-flex justify-content-center" style="font-family:Arial, Helvetica, sans-serif"><strong>News Flash Scraper</strong></h1>
     <form id="scrape-form" method="POST" action="{{ url_for('scrape') }}">
 		<label for="website" class="d-flex justify-content-center">Update data from website:</label>
 		<div class="d-flex justify-content-center">
@@ -37,33 +37,43 @@
 		</div>
     </form>
 	<div class="container">
-		<table id="table"
-			data-toggle="table"
-			data-filter-control="true"
-			data-show-search-clear-button="true"
-			data-sortable="true"
-			classes="table-sm"
-			data-pagination="true"
-			data-show-columns="true"
-			data-show-columns-toggle-all="true"
-			class="table-responsive">
-			<thead>
-				<tr>
-					{% for field in fields %}
-						<th data-field="{{ field }}" data-filter-control="input" data-sortable="true">{{ field }}</th>
-					{% endfor %}
-				</tr>
-			</thead>
-			<tbody>
-				{% for row in news_flash %}
+		{% if fields %}
+			<table id="table"
+				data-toggle="table"
+				data-filter-control="true"
+				data-show-search-clear-button="true"
+				data-sortable="true"
+				classes="table-sm"
+				data-pagination="true"
+				data-show-columns="true"
+				data-show-columns-toggle-all="true"
+				class="table-responsive"
+				{% if sort_by_field %}
+					data-sort-name="{{ sort_by_field }}"
+					data-sort-order="desc"
+				{% endif %}
+				>
+				<thead>
 					<tr>
 						{% for field in fields %}
-							<td>{{ row[field] }}</td>
+							<th data-field="{{ field }}" data-filter-control="input" data-sortable="true">{{ field }}</th>
 						{% endfor %}
 					</tr>
-				{% endfor %}
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					{% for row in news_flash %}
+						<tr>
+							{% for field in fields %}
+								<td>{{ row[field] }}</td>
+							{% endfor %}
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		{% else %}
+			<br>
+			<p class="d-flex justify-content-center">No newsflash articles added yet.</p>
+		{% endif %}
 	</div>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
