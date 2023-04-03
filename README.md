@@ -46,4 +46,5 @@ Launch the flask app (debug mode):
 flask --app app.py --debug run
 ```
 Retrieve newsflash from the desired website using the interface:
+
 ![alt text](https://github.com/bilbisli/news_flash_scraping_db/blob/main/newsflash_scraping.gif?raw=true)
