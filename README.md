@@ -37,7 +37,6 @@ Install the dependencies using the requirements.txt:
 ```sh
 pip install -r requirements.txt
 ```
-* Finally, add the 'web_scraping' module to **`PATH`**
 
 
 ## Usage
