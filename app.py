@@ -7,7 +7,7 @@ from scraping import scrape_maariv, scrape_walla, scrape_ynet
 
 
 app = Flask(__name__)
-client = MongoClient("mongodb+srv://bilbisli:GoKAMYlEnwV5wC6G@cluster0.jddwckk.mongodb.net/?retryWrites=true&w=majority")
+client = MongoClient("mongodb+srv://news_flash_user:nwPRrLePEgy8cv25@cluster0.jddwckk.mongodb.net/?retryWrites=true&w=majority")
 db = client['app_db']
 collection = db['news_flash']
 # db.news_flash.create_index([('Title', pymongo.TEXT), ('Text', pymongo.TEXT)], name='newsflash_index', default_language='none', unique=True)
